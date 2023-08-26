@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": ".",
+    "paths": {
+      "Cache": ["./cache/*"],
+      "Config": ["./config/*"],
+      "CronJobs": ["./cronJobs/*"],
+      "Db": ["./db/*"],
+      "Helpers": ["./helpers/*"],
+      "Lib": ["./lib/*"],
+      "Constants": ["./constants/*"],
+      "Models": ["./models/*"],
+      "Routes": ["./routes/*"],
+      "Schema": ["./schema/*"],
+      "Services": ["./services/*"],
+      "Types": ["./types/*"],
+      "Tests": ["./tests/*"],
+      "Utils": ["./utils/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "build"]
+}

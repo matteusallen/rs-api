@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:12
+    container_name: postgresdb
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: reservationsLocalTest
+    ports:
+      - '2345:5432'
+      
