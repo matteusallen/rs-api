@@ -1,0 +1,88 @@
+# import * from 'user/user.graphql'
+# import * from 'userRole/userRole.graphql'
+# import * from 'venue/venue.graphql'
+# import * from 'building/building.graphql'
+# import * from 'stall/stall.graphql'
+# import * from 'event/event.graphql'
+# import * from 'addOn/addOn.graphql'
+# import * from 'order/order.graphql'
+# import * from 'orderItem/orderItem.graphql'
+# import * from 'reservation/reservation.graphql'
+# import * from 'reservationStatus/reservationStatus.graphql'
+# import * from 'payment/payment.graphql'
+# import * from 'stallProduct/stallProduct.graphql'
+# import * from 'rvProduct/rvProduct.graphql'
+# import * from 'addOnProduct/addOnProduct.graphql'
+# import * from 'rvLot/rvLot.graphql'
+# import * from 'rvSpot/rvSpot.graphql'
+# import * from 'document/document.graphql'
+# import * from 'superAdmin/superAdmin.graphql'
+# import * from 'group/group.graphql'
+# import * from 'groupOrder/groupOrder.graphql'
+# import * from 'productQuestion/productQuestion.graphql'
+
+scalar Date
+scalar Time
+scalar DateTime
+
+type Query {
+  user(id: ID, email: String, token: String, venueId: String): GetUserReturn
+  users(orderBy: [String], filterBy: UserFilterInput, limit: Int): [User]
+  groupLeaders: [User]
+  checkResetPasswordTokenExpired(token: String): ResetPasswordTokenExpiredReturn
+  venue(id: ID): Venue
+  venues: [Venue]
+  event(id: ID): Event
+  events(orderBy: [String], filterBy: EventFilterInput, limit: Int, offset: Int): [Event]
+  searchEvents(input: EventSearchInput): [EventSearch]
+  searchEventsWithOrderCheck(name: String!, limit: Int): [EventSearchWithOrder]
+  groupEvents(groupId: Int): [GroupEvent]
+  getOrdersByGroupId(groupId: ID): [GroupOrder]
+  group(id: ID): Group
+  groups(allowDeferred: Boolean): [Group]
+  groupLeaderGroups(allowDeferred: Boolean, groupLeaderId: String): [Group]
+  groupOrders(groupId: ID): [GroupOrder]
+  reservationStatuses: [ReservationStatus]
+  userRoles: [UserRole]
+  order(id: ID): Order
+  orderHistory(id: ID): [OrderHistoryDetails]
+  orders(input: OrdersInput): OrdersReturn
+  orderCosts(input: OrderCostsInput): OrderCostsReturn
+  orderCostsFee(input: OrderCostsOnEditInput): OrderCostsOnEditReturnType
+  orderUpdatePricingDiffs(input: OrderUpdateInput): OrderUpdateReturn
+  stallProductAvailability(input: StallProductAvailabilityInputType): [StallProductAvailability]
+  reservationAssignmentSMSCounts(input: SMSCountInput): SMSCountReturn
+  rvProductAvailability(input: RVProductAvailabilityInputType): [RVProductAvailability]
+  rvSpotAvailability(input: RVSpotAvailabilityInput): [RVSpotAvailability]
+  stallAvailability(input: StallAvailabilityInput): [StallAvailability]
+}
+
+type Mutation {
+  createGroup(input: GroupUpsertInput): CreateGroupReturn
+  customSMSWithOrders(input: SMSByOrderIdsInput): SMSReturn
+  logIn(input: LoginInput): LoginReturn
+  logOut(input: LogoutInput): LogoutReturn
+  register(input: RegisterInput): RegisterReturn
+  createPassword(input: CreatePasswordInputType!): CreatePasswordPayloadType
+  forgotPassword(input: ForgotPasswordInput): ResetPasswordReturn
+  resetPassword(input: ResetPasswordInput): ResetPasswordReturn
+  reservationDetailsSMS(input: AssignmentsSMSInput): SMSReturn
+  upsertUser(input: UserUpsertInput): RegisterReturn
+  createEvent(input: EventUpsertInput): EventReturn
+  editEvent(input: EventUpsertInput): EventReturn
+  createVenue(input: CreateVenueType): CreateVenueReturnType
+  deleteGroup(id: ID): Boolean
+  updateGroup(input: UpdateGroupInput): UpdateGroupReturn
+  updateOrder(input: UpdateOrderInput): UpdateOrderReturn
+  updateStallStatus(input: StallStatusUpdateInput): StallReturn
+  updateReservationStatus(input: UpdateReservationStatusInput): ReservationReturn
+  refund(input: [RefundInput]): RefundReturn
+  checkoutGroup(input: OrderCheckoutInput): OrderCheckoutReturn
+  checkout(input: OrderCheckoutInput): OrderCheckoutReturn
+  cancelOrder(input: CancelOrderInput): UpdateOrderReturn
+  updateEventAndProductInfo(input: EventAndProductUpdateInput): EventAndProductUpdateReturn
+  setIsVisited(id: ID): Boolean
+  refreshCode(id: ID): String
+  validateCode(input: GroupCodeValidationInput): Group
+  groupUniqueText(input: GroupByUniqueTextInput): Group
+}

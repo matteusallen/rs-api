@@ -1,0 +1,8 @@
+"The type representing a full AddOn entity"
+type AddOn {
+  id: ID
+  name: String
+  description: String
+  unitName: String
+  venue: Venue
+}

@@ -1,0 +1,20 @@
+type OrderItem {
+  id: ID
+  order: Order
+  price: Float
+  reservation: Reservation
+  addOnProduct: AddOnProduct
+  quantity: Int
+}
+
+input OrderItemInput {
+  id: ID
+  assignments: [ID]
+  xProductId: ID
+  xRefTypeId: ID
+  quantity: Int!
+  startDate: Date
+  endDate: Date
+  statusId: ID
+  productQuestionAnswers: [ProductQuestionAnswerInput]
+}

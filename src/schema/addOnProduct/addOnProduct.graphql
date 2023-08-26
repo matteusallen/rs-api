@@ -1,0 +1,15 @@
+"AddOn Product for an event"
+type AddOnProduct {
+  id: ID
+  event: Event
+  price: Float
+  addOn: AddOn
+  booked: Boolean
+  disabled: Boolean
+}
+
+input CreateAddOnProductInput {
+  addOnId: ID!
+  price: Float!
+  disabled: Boolean
+}

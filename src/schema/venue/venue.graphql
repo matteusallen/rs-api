@@ -1,0 +1,61 @@
+type Venue {
+  id: ID
+  name: String
+  phone: String
+  street: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  description: String
+  users(orderBy: [String], filterBy: UserFilterInput, limit: Int, offset: Int): [User]
+  events(orderBy: [String], filterBy: EventFilterInput, limit: Int, offset: Int): [Event]
+  orders(venueIds: [ID], limit: Int, offset: Int): [Order]
+  buildings: [Building]
+  stalls(orderBy: [String], filterBy: StallInputFilter, limit: Int, offset: Int): [Stall]
+  addOns: [AddOn]
+  rvLots: [RVLot]
+  rvs(orderBy: [String], filterBy: RVInputFilter, limit: Int, offset: Int): [RVSpot]
+  timeZone: String
+  venueAgreements: [Document]
+  venueMaps: [Document]
+  stripeAccountType: String
+}
+
+input CreateVenueType {
+  id: ID
+  name: String
+  phone: String
+  street: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  description: String
+  timeZone: String
+  stripeAccountType: String
+  stripeAccount: String
+  feePerProduct: Float
+  percentageFee: Float
+  feeCap: Float
+  platformFee: Int
+}
+
+type CreateVenueReturnType {
+  id: ID
+  name: String
+  phone: String
+  street: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  description: String
+  timeZone: String
+  stripeAccount: String
+  stripeAccountType: String
+  feePerProduct: Float
+  percentageFee: Float
+  feeCap: Float
+  platformFee: Int
+}

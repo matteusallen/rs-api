@@ -1,0 +1,11 @@
+type RVLot {
+  id: ID
+  name: String
+  description: String
+  venue: Venue
+  sewer: Boolean
+  water: Boolean
+  power: String
+  rvSpots: [RVSpot]
+  availableRVSpots: [RVSpot]
+}

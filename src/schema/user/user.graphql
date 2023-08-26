@@ -1,0 +1,181 @@
+"The type representing a full User entity"
+type RenterOrder {
+  id: ID
+  event: Event
+  canceled: DateTime
+}
+
+type User {
+  id: ID
+  firstName: String
+  lastName: String
+  email: String
+  role: UserRole
+  fullName: String
+  street: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  phone: String
+  venues: [Venue]
+  savedCreditCards: [UserSavedCreditCardType]
+  orders: [RenterOrder]
+  unallowedActions: UnAllowedActions
+}
+
+"The data type returned when requesting a single user's data"
+type GetUserReturn {
+  payload: User
+  "String indicating any errors that occurred when attempting to retreive a user"
+  error: String
+}
+
+"The payload type returned for an authentication attempt"
+type AuthReturn {
+  "String containing the user's current authentication token. Null if authentication failed"
+  token: String
+  "String indicating any errors that occurred during the authentication process"
+  error: String
+  "Boolean value indicating whether the authentication attempt was successful or not"
+  success: Boolean
+}
+
+"The payload type returned unallowed actions for logged in user"
+type UnAllowedActions {
+  groups: [String]
+  orders: [String]
+}
+
+"The payload type returned for a login attempt"
+type LoginReturn {
+  user: User
+  auth: AuthReturn
+}
+
+"The payload type returned for a logout attempt"
+type LogoutReturn {
+  "String indicating any errors that occurred during the logout process"
+  error: String
+  "Boolean value indicating whether the logout attempt was successful or not"
+  success: Boolean
+}
+
+"The payload type returned for a user registration attempt"
+type RegisterReturn {
+  "ID for successfully registered user account. Null if unsuccessful"
+  userId: ID
+  "String indicating any errors that occurred during the user registration process"
+  error: String
+}
+
+"The payload type returned for a reset or forgot password attempt"
+type ResetPasswordReturn {
+  "String indicating any errors that occurred during the reset or forgot password process"
+  error: String
+  "Boolean value indicating whether the reset or forgot password attempt was successful or not"
+  success: Boolean
+}
+
+"The input type submitted with the user login request"
+input LoginInput {
+  "User email address, stored in the shared services database"
+  email: String
+  "Plaintext password used to check against database encrypted password"
+  password: String
+}
+
+"The input type submitted with the user logout request"
+input LogoutInput {
+  "Authentication token"
+  token: String
+}
+
+"The input type submitted with the user registration request"
+input RegisterInput {
+  "The desired user email address, stored the shared services database"
+  email: String
+  "Plaintext password used to encrypt and store in the local database"
+  password: String
+  "First name of user"
+  firstName: String
+  "Last name of user"
+  lastName: String
+  "Phone number of user, to text stall/spot information"
+  phone: String
+}
+
+"The input type submitted with the forgot password request"
+input ForgotPasswordInput {
+  "The user's email for the account where the reset password process needs to be started, stored the shared services database"
+  email: String
+}
+
+"The input type submitted with the reset password request"
+input ResetPasswordInput {
+  "Plaintext password used to encrypt and store in the local database"
+  password: String
+  "Reset password token stored in the local database"
+  resetPasswordToken: String
+}
+
+"The input type for upserting a user"
+input UserUpsertInput {
+  id: ID
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  roleId: ID
+  street: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  venueId: ID
+}
+
+"The available filters for querying users"
+input UserFilterInput {
+  id: [ID]
+  firstName: String
+  lastName: String
+  email: String
+  roleId: [ID]
+  active: Boolean
+}
+
+"The credit card returned from stripe that has been saved by the user."
+type UserSavedCreditCardType {
+  id: String
+  address_zip: String
+  brand: String
+  last4: String
+  exp_month: String
+  exp_year: String
+  name: String
+  fingerprint: String
+  country: String
+}
+
+"Returns true or false on whether the password reset token has expired or not."
+type ResetPasswordTokenExpiredReturn {
+  error: String
+  expired: Boolean
+}
+
+"Payload type returned for a create password"
+type CreatePasswordPayloadType {
+  "String indicating any errors that occurred during the create password process"
+  error: String
+  "Boolean value indicating whether the create password was successful or not"
+  success: Boolean
+}
+
+"The input type for the create password request"
+input CreatePasswordInputType {
+  "Password used to encrypt and store in the local database"
+  password: String
+  "Reset password token stored in the local database"
+  token: String
+}

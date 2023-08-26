@@ -1,0 +1,54 @@
+type StallProduct {
+  id: ID
+  event: Event
+  "Is this product per night or total"
+  nightly: Boolean
+  startDate: Date
+  endDate: Date
+  name: String
+  description: String
+  price: Float
+  stalls: [Stall]
+  soldOut: Boolean
+  booked: Boolean
+  questions: [ProductQuestionType]
+  minNights: Int
+}
+
+input StallProductAvailabilityInputType {
+  eventId: ID!
+  startDate: String!
+  endDate: String!
+  reservationId: Int
+  includeCurrentReservation: Boolean
+}
+
+type StallProductAvailability {
+  productId: ID
+  available: Int
+}
+
+input StallAvailabilityInput {
+  endDate: Date!
+  productId: ID!
+  reservationId: ID
+  startDate: Date!
+  includeCurrentReservation: Boolean
+}
+
+type StallAvailability {
+  rvLot: RVLot
+  building: Building
+  availableSpaces: [Stall]
+}
+
+input CreateStallProductInput {
+  name: String!
+  startDate: String!
+  endDate: String!
+  nightly: Boolean!
+  price: Float!
+  description: String
+  stalls: [ID]!
+  minNights: Int!
+}

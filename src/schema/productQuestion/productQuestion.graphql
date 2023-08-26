@@ -1,0 +1,46 @@
+type ProductQuestionType {
+  question: String!
+  answerOptions: [String]
+  questionType: String!
+  required: Boolean!
+  listOrder: Int!
+}
+
+type ProductQuestionAnswer {
+  id: ID!
+  questionId: ID!
+  question: String!
+  answerOptions: [String]
+  answer: [String]!
+  questionType: String!
+  required: Boolean!
+  minLength: Int
+  maxLength: Int
+}
+
+type ProductQuestion {
+  id: ID!
+  question: String!
+  answerOptions: [String]
+  questionType: String!
+  required: Boolean!
+  listOrder: Int!
+  minLength: Int
+  maxLength: Int
+}
+
+input ProductQuestionInput {
+  question: String!
+  answerOptions: [String]
+  questionType: String!
+  required: Boolean!
+  listOrder: Int!
+  minLength: Int
+  maxLength: Int
+}
+
+input ProductQuestionAnswerInput {
+  questionId: ID!
+  orderId: ID!
+  answer: [String]!
+}

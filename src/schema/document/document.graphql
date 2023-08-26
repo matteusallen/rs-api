@@ -1,0 +1,8 @@
+"The type representing a full document entity"
+type Document {
+  id: ID
+  venue: Venue
+  name: String
+  description: String
+  url: String
+}

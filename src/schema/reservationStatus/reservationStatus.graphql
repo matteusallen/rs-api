@@ -1,0 +1,10 @@
+type ReservationStatus {
+  id: ID
+  name: String
+}
+
+input UpdateReservationStatusInput {
+  orderItemId: ID
+  statusId: ID
+}
+

@@ -1,0 +1,57 @@
+type Group {
+  id: ID
+  name: String
+  contactName: String
+  email: String
+  phone: String
+  allowDeferred: Boolean
+  orders: [GroupOrder]
+  groupLeaderId: Int
+  code: String
+}
+
+input UpdateGroupInput {
+  id: ID!
+  name: String!
+  contactName: String!
+  email: String!
+  phone: String!
+  groupLeaderId: String
+}
+
+input GroupUpsertInput {
+  id: ID
+  name: String!
+  contactName: String!
+  email: String!
+  phone: String!
+  groupLeaderId: String
+}
+
+input GroupCodeValidationInput {
+  code: String!
+}
+
+input GroupByUniqueTextInput {
+  name: String!
+  venueId: ID
+}
+
+"Return for creating a group"
+type CreateGroupReturn {
+  group: Group
+}
+
+"Return for updating a group"
+type UpdateGroupReturn {
+  group: Group
+}
+
+"Return for getting group id by name"
+type GroupByUniqueTextReturn {
+  group: Group
+}
+
+type ValidateGroupReturn {
+  group: Group
+}

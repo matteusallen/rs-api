@@ -1,0 +1,5 @@
+type UserRole {
+  id: ID
+  name: String
+}
+

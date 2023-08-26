@@ -1,0 +1,49 @@
+type Payment {
+  admin: User
+  amount: Float
+  cardBrand: String
+  cardPayment: Boolean
+  createdAt: DateTime
+  id: ID
+  last4: String
+  notes: String
+  serviceFee: Float
+  stripeFee:Float
+  ssChargeId: ID
+  ssRefundId: ID
+  updatedAt: DateTime
+  order: Order
+  success: Boolean
+}
+
+input NewPaymentInput{
+  "The Stripe generated token, if not using a saved card"
+  adminId: ID
+  token: String
+  description: String
+  saveCard: Boolean!
+  selectedCard: String
+  useCard: Boolean!,
+  isNonUSCard: Boolean!
+}
+
+input RefundInput {
+  amount: Float
+  cardBrand: String
+  cardPayment: Boolean
+  last4: String
+  notes: String
+  orderId: Int
+  ssChargeId: String
+}
+
+input NoRefundInput {
+  notes: String
+  amount: Float
+}
+
+type RefundReturn {
+  success: Boolean
+  error: String
+  refunds: [Payment]
+}

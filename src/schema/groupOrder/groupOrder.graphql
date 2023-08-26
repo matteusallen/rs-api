@@ -1,0 +1,25 @@
+type GroupOrder {
+  groupId: ID
+  orderId: ID
+  amount: String
+}
+
+type GroupOrderBill {
+  id: ID
+  amount: Float
+  isRefund: Boolean
+  note: String
+}
+
+"Return for getting Group Orders"
+type GroupOrdersReturn {
+  groupOrders: [GroupOrder]
+  success: Boolean!
+  error: String
+}
+
+input GroupOrderPaymentInput{
+  amount: Float,
+  notes: String,
+  isRefund: Boolean!
+}

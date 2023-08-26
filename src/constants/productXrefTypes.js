@@ -1,0 +1,6 @@
+export const PRODUCT_XREF_TYPES = {
+  STALLS: 1,
+  ADDONS: 2,
+  RVS: 3,
+  RESERVATIONS: 4
+};

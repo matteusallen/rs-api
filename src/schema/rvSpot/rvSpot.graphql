@@ -1,0 +1,17 @@
+type RVSpot {
+  id: ID
+  rvLot: RVLot
+  name: String
+  description: String
+  disabled: Date
+  nextOrder(filterBy: RVInputFilter): Order
+}
+
+"The available filters for querying RVs"
+input RVInputFilter {
+  id: [ID]
+  name: String
+  rvLotId: String
+  startDate: Date
+  orderBy: [String]
+}

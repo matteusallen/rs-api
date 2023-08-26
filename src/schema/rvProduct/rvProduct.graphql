@@ -1,0 +1,57 @@
+type RVProduct {
+  id: ID
+  event: Event
+  startDate: Date
+  endDate: Date
+  "Is this product per night or total"
+  nightly: Boolean
+  price: Float
+  rvSpots: [RVSpot]
+  rvLot: RVLot
+  name: String
+  description: String
+  questions: [ProductQuestionType]
+  minNights: Int
+  booked: Boolean
+  assignedSpots: [ID]
+}
+
+input RVProductAvailabilityInputType {
+  eventId: ID!
+  startDate: String!
+  endDate: String!
+  reservationId: Int
+  includeCurrentReservation: Boolean
+}
+
+type RVProductAvailability {
+  productId: ID
+  available: Int
+}
+
+input RVSpotAvailabilityInput {
+  endDate: Date!
+  productId: ID!
+  reservationId: ID
+  startDate: Date!
+  includeCurrentReservation: Boolean
+}
+
+type RVSpotAvailability {
+  rvLot: RVLot
+  building: Building
+  availableSpaces: [RVSpot]
+}
+
+input CreateRVProductInput {
+  name: String!
+  startDate: String!
+  endDate: String!
+  rvLotId: ID!
+  price: Float!
+  description: String
+  rvSpots: [ID]!
+  nightly: Boolean!
+  questions: [ProductQuestionInput]
+  minNights: Int!
+}

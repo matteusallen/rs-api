@@ -1,0 +1,300 @@
+type Order {
+  adminNotes: String
+  orderItems: [OrderItem]
+  orderHistory: [OrderHistoryDetails]
+  createdAt: DateTime
+  updatedAt: DateTime
+  fee: Float
+  platformFee: Float
+  id: ID
+  notes: String
+  successor: ID
+  successorOrder: Order
+  total: Float
+  discount: Float
+  user: User
+  event: Event
+  payments: [Payment]
+  groupPayments: [GroupOrderBill]
+  canceled: DateTime
+  lastDepartureDate: String
+  nextReservationDate: String
+  group: Group
+  rvQuestionAnswers: [ProductQuestionAnswer]
+  stallQuestionAnswers: [ProductQuestionAnswer]
+  isVisited: Boolean
+  multipleOrders: Boolean
+  isEditable: Boolean
+  isGroupOrderPaymentSettled: Boolean
+  groupOrderLast4: String
+}
+
+type OrderHistoryPayment {
+  id: ID
+  ssChargeId: String
+  ssRefundId: String
+  amount: Float
+  cardPayment: Boolean
+  cardBrand: String
+  last4: String
+  notes: String
+}
+
+type OrderHistoryDetails {
+  createdAt: String
+  payment: Payment
+  groupOrderBill: GroupOrderBill
+  user: User
+  productType: String
+  quantity: Int
+  prevProductId: Int
+  nightly: Boolean
+  productName: String
+  startDate: String
+  endDate: String
+  prevStartDate: String
+  prevEndDate: String
+  prevQuantity: Int
+  noRefundReason: String
+  isNoRefund: Boolean
+  discount: Float
+  payments: [OrderHistoryPayment]
+  productId: Int
+}
+
+input OrdersInput {
+  orderBy: String
+  filterBy: OrderFilterType
+  limit: Int
+  offset: Int
+  checkInOnly: Boolean
+  checkOutOnly: Boolean
+}
+
+type OrdersReturn {
+  error: String
+  success: Boolean
+  orders: [Order]
+  count: Int
+  checkingInCount: Int
+  checkingOutCount: Int
+}
+
+input QuestionAnswerType {
+  questionId: String
+  answer: [String]
+}
+
+input OrderUpsertInput {
+  productQuestionAnswers: [QuestionAnswerType]
+  orderItems: [OrderItemInput]
+  adminNotes: String
+  eventId: ID
+  notes: String
+  successor: ID
+  userId: ID
+}
+
+input EditReservation {
+  reservationId: ID
+  orderItemId: ID
+  xProductId: ID
+  xRefTypeId: Int
+  type: String
+  startDate: Date
+  endDate: Date
+  quantity: Int
+}
+
+input EditAddOn {
+  orderItemId: ID
+  type: String
+  quantity: Int
+  xProductId: ID
+}
+
+input EditAssignment {
+  reservationId: ID
+  spaceId: String
+  type: String
+}
+
+input EditProductAnswer {
+  id: ID
+  answer: [String]
+}
+
+input OrderItemForUpdate {
+  endDate: String
+  startDate: String
+  xRefTypeId: Int
+  quantity: Int
+  xProductId: String
+}
+
+input UpdateOrderInput {
+  orderId: ID!
+  adminNotes: String
+  productQuestionAnswers: [EditProductAnswer]
+  reservations: [EditReservation]!
+  addOns: [EditAddOn]!
+  assignments: [EditAssignment]!
+  orderItemsArray: [OrderItemForUpdate]
+  refundPayment: Boolean!
+  refundInformation: [RefundInput]
+  groupOrderPayment: GroupOrderPaymentInput
+  noRefund: NoRefundInput
+  paymentInput: NewPaymentInput
+  userInput: UserUpsertInput
+  multipaymentInput: MultipaymentInput
+}
+
+type UpdateOrderReturn {
+  order: Order
+  success: Boolean
+  error: String
+}
+
+input CancelOrderInput {
+  orderId: ID!
+  refundPayment: Boolean!
+  refundInformation: [RefundInput]
+}
+
+type OrderCheckoutReturn {
+  success: Boolean
+  order: Order
+  error: String
+}
+
+input MultipaymentInput {
+  isMultipayment: Boolean
+  totalToCash: String
+  totalToCard: String
+}
+
+input OrderCheckoutInput {
+  userInput: UserUpsertInput!
+  orderInput: OrderUpsertInput!
+  paymentInput: NewPaymentInput
+  groupId: Int
+  groupCode: String
+  orderId: Int
+  multipaymentInput: MultipaymentInput
+}
+
+input OrderUpdateItem {
+  id: ID
+  quantity: Int
+}
+
+input OrderItemsUpdateInput {
+  addOns: [OrderUpdateItem]
+  rvs: [OrderUpdateItem]
+  stalls: [OrderUpdateItem]
+}
+
+input OrderUpdateInput {
+  orderId: ID!
+  updatedOrder: OrderItemsUpdateInput
+}
+
+type OrderUpdateDelta {
+  id: ID
+  quantityDelta: Int
+  originalPrice: Float
+  newPrice: Float
+  priceDelta: Float
+  name: String
+  unitName: String
+  stripeFee: Float
+}
+
+type OrderUpdateReturn {
+  success: Boolean
+  error: String
+  transactionFee: Float
+  addOns: [OrderUpdateDelta]
+  rvs: [OrderUpdateDelta]
+  stalls: [OrderUpdateDelta]
+}
+
+input OrderCostsInput {
+  selectedOrderItems: [OrderItemInput]!
+  useCard: Boolean!
+  isNonUSCard: Boolean!
+}
+
+input OrderCostsOnEditInput {
+  amount: Float
+  useCard: Boolean!
+  isNonUSCard: Boolean!
+  orderId: Int!
+  reservationAdded: Boolean!
+}
+
+type OrderCostsReturn {
+  orderItemsCostsWithDetails: [OrderItemCostsWithDetails]
+  subtotal: Float
+  stripeFee: Float
+  serviceFee: Float
+  total: Float
+  discount: Float
+}
+
+type OrderCostsOnEditReturnType {
+  fee: Float
+}
+
+type OrderItemCostsWithDetails {
+  xProductId: ID
+  xRefTypeId: ID
+  quantity: Int
+  startDate: Date
+  endDate: Date
+  orderItemCost: Float
+  discount: Float
+  discountStartDate: Date
+  discountEndDate: Date
+}
+
+input OrderFilterType {
+  group: String
+  event: String
+  user: String
+  hasStalls: Boolean
+  hasRVs: Boolean
+  hasAddOns: Boolean
+  hasSpecialReqs: Boolean
+  allSpacesAssigned: Boolean
+  spacesNeedAssignment: Boolean
+  startDate: Date
+  endDate: Date
+  reservationStatus: Int
+  stallName: String
+  rvSpotName: String
+}
+
+"Payload for bulk SMS assignment request. Array of order IDs"
+input AssignmentsSMSInput {
+  orderIds: [String]!
+  reservationType: String!
+}
+
+input SMSCountInput {
+  orderIds: [ID]!
+  reservationType: String!
+}
+
+input SMSByOrderIdsInput {
+  body: String
+  orderIds: [ID]!
+}
+
+"Collections of order IDs that will be messaged if next step is to send bulk SMS messages"
+type SMSCountReturn {
+  productTypeNotPurchased: Int
+  noSpacesAssigned: Int
+  assignmentsAlreadySent: Int
+  ordersToBeSentAssignment: [ID]
+}

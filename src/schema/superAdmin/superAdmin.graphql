@@ -1,0 +1,18 @@
+"Input for updating event or product info"
+input EventAndProductUpdateInput {
+  event: InfoInput
+  products: [InfoInput]
+}
+
+"Return for updating event or product info"
+type EventAndProductUpdateReturn {
+  success: Boolean
+  error: String
+}
+
+input InfoInput {
+  id: ID!
+  name: String
+  description: String
+  type: String
+}

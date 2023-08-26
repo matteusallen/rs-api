@@ -1,0 +1,124 @@
+"Event for a venue"
+type Event {
+  id: ID
+  description: String
+  name: String
+  checkInTime: String
+  checkOutTime: String
+  startDate: Date
+  endDate: Date
+  openDate: DateTime
+  closeDate: DateTime
+  createdAt: Date
+  venue: Venue
+  orders: [Order]
+  addOnProducts: [AddOnProduct]
+  stallProducts: [StallProduct]
+  stallQuestions: [ProductQuestion]
+  stallFlip: Boolean
+  rvQuestions: [ProductQuestion]
+  rvProducts: [RVProduct]
+  rvFlip: Boolean
+  venueAgreement: Document
+  venueMap: Document
+  rvSoldOut: Boolean
+  stallSoldOut: Boolean
+  hasOrder: Boolean
+  hasStallRes: Boolean
+  hasRVRes: Boolean
+  isGroupCodeRequired: Boolean
+}
+
+type VenueForEventSearch {
+  id: String
+  state: String
+  city: String
+  phone: String
+  timeZone: String
+  name: String
+}
+
+type EventSearch {
+  id: ID
+  name: String
+  closeDate: DateTime
+  openDate: DateTime
+  startDate: Date
+  endDate: Date
+  venue: VenueForEventSearch
+  stallProducts: [StallProduct]
+  rvProducts: [RVProduct]
+  rvSoldOut: Boolean
+  stallSoldOut: Boolean
+}
+
+type EventSearchWithOrder {
+  id: ID
+  name: String
+  startDate: Date
+  endDate: Date
+  hasStallRes: Boolean
+  hasRVRes: Boolean
+}
+
+type GroupEvent {
+  id: ID
+  name: String
+  startDate: Date
+  endDate: Date
+}
+
+"The available filters for querying events"
+input EventFilterInput {
+  id: [ID]
+  name: String
+  startDate: Date
+  endDate: Date
+  createdAt: String
+  openDate: DateTime
+  orderBy: [String]
+}
+
+"Input for creating or updating an event"
+input EventUpsertInput {
+  id: ID
+  name: String!
+  description: String!
+  startDate: Date!
+  endDate: Date!
+  openDate: DateTime!
+  closeDate: DateTime!
+  checkInTime: String!
+  checkOutTime: String!
+  stallProducts: [CreateStallProductInput]
+  stallQuestions: [ProductQuestionInput]
+  rvProducts: [CreateRVProductInput]
+  rvQuestions: [ProductQuestionInput]
+  addOnProducts: [CreateAddOnProductInput]
+  venueMapDocumentId: ID
+  venueAgreementDocumentId: ID!
+  stallFlip: Boolean
+  rvFlip: Boolean
+  renterGroupCodeMode: String
+}
+
+"The input used for assigning stalls to events"
+input AssignedStallInput {
+  "The building id we want to add stalls from"
+  buildingId: ID!
+  "Any stalls from a building that we do not want assign to a building id"
+  omittedStallIds: [ID]
+}
+
+"Return for creating or updating an event"
+type EventReturn {
+  event: Event
+  success: Boolean
+  error: String
+}
+
+input EventSearchInput {
+  name: String!
+  limit: Int
+  offset: Int
+}

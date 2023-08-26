@@ -1,0 +1,38 @@
+enum StallStatusType {
+  dirty
+  occupied
+  clean
+}
+
+type Stall {
+  id: ID
+  name: String
+  description: String
+  status: StallStatusType
+  building: Building
+  currentOrder(filterBy: StallInputFilter): Order
+  nextOrder(filterBy: StallInputFilter): Order
+}
+
+"The available filters for querying stalls"
+input StallInputFilter {
+  id: [ID]
+  name: String
+  status: StallStatusType
+  buildingId: String
+  startDate: Date
+  endDate: Date
+  orderBy: [String]
+}
+
+type StallReturn {
+  stall: Stall
+  success: Boolean
+  error: String
+}
+
+input StallStatusUpdateInput {
+  id: ID!
+  status: StallStatusType
+}
+

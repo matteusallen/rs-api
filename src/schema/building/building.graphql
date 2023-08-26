@@ -1,0 +1,8 @@
+"Building that contains stalls for a venue"
+type Building {
+  id: ID
+  name: String
+  venue: Venue
+  stalls: [Stall]
+  availableStalls: [Stall]
+}
